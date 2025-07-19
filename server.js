@@ -29,6 +29,8 @@ function emitActiveStudents() {
   io.emit("students:update", studentList);
 }
 
+
+
 io.on("connection", (socket) => {
   console.log("New client connected:", socket.id);
 
@@ -73,7 +75,7 @@ io.on("connection", (socket) => {
 
     console.log("New poll created:", question);
      emitActiveStudents(); 
-    // Start timer
+  
     pollTimer = setTimeout(() => {
        endPollAndEmitResults();
        emitActiveStudents(); 
@@ -184,6 +186,9 @@ function endPollAndEmitResults() {
   emitActiveStudents();
 } 
 
+app.get("/", (req, res) => {
+  res.send("Hello from Render!");
+});
 
 app.post("/admin/clear-data", (req, res) => {
   students = {};
